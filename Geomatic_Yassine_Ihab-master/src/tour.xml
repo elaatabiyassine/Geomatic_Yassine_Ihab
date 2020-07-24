@@ -121,7 +121,7 @@
 		  );
 	</action>
 
-	<layer name="object-detection-button-container" type="container" keep="true" align="lefttop" x="20" y="20" width="200" height="60" bgcolor="0xF1F1F1" bgalpha="0.7" bgcapture="true" maskchildren="true">
+	<layer name="object-detection-button-container" type="container" keep="true" align="lefttop" x="20" y="20" width="200" height="60" bgcolor="#121212" bgalpha="0.7" bgcapture="true" maskchildren="true">
 		<layer name="object_detection_off" url="off-switch.png" align="left" x="10" y="0" 
 			onclick.addevent="set(layer[object_detection_off].enabled,'false'); set(layer[object_detection_off].visible,'false'); set(layer[object_detection_on].enabled,'true'); set(layer[object_detection_on].visible,'true');action(nextscene);" 
 			visible="true" enabled="true"/>
@@ -129,11 +129,11 @@
 			onclick.addevent="set(layer[object_detection_on].enabled,'false'); set(layer[object_detection_on].visible,'false'); set(layer[object_detection_off].enabled,'true'); set(layer[object_detection_off].visible,'true');action(prevscene)" 
 			visible="false" enabled="false"/>
 		<layer name="object_detection_label_container" type="container" align="left" x="60" y="0" width="100" height="100" bgalpha="0.0" >
-			<layer name="object_detection_label" html="Detect objects" align="center" x="0" y="0" style="text" />
+			<layer name="object_detection_label" html="Detect Objects" align="center" x="0" y="0" style="text" />
 		</layer>
 	</layer>
 
-	<layer name="object-tracking-button-container" type="container" keep="true" align="lefttop" x="20" y="80" width="200" height="60" bgcolor="0xF1F1F1" bgalpha="0.7" bgcapture="true" maskchildren="true">
+	<layer name="object-tracking-button-container" type="container" keep="true" align="lefttop" x="20" y="80" width="200" height="60" bgcolor="#121212" bgalpha="0.7" bgcapture="true" maskchildren="true">
 		<layer name="object_tracking_off" url="off-switch.png" align="left" x="10" y="0" 
 				onclick.addevent="set(layer[object_tracking_off].enabled,'false'); set(layer[object_tracking_off].visible,'false'); set(layer[object_tracking_on].enabled,'true'); set(layer[object_tracking_on].visible,'true');set(layer[draggable-map-container].visible, 'false'); set(layer[aimbox].visible, 'true')" 
 				visible="true" enabled="true"/>
@@ -141,7 +141,7 @@
 			onclick.addevent="set(layer[object_tracking_on].enabled,'false'); set(layer[object_tracking_on].visible,'false'); set(layer[object_tracking_off].enabled,'true'); set(layer[object_tracking_off].visible,'true');set(layer[draggable-map-container].visible, 'true'); set(layer[aimbox].visible, 'false'); removehotspot('temp_hs')" 
 			visible="false" enabled="false"/>
 		<layer name="object_tracking_label_container" type="container" align="left" x="60" y="0" width="100" height="100" bgalpha="0.0" >
-			<layer name="object_tracking_label" html="Mesure objects" align="center" x="0" y="0" style="text" />
+			<layer name="object_tracking_label" html="Measure Objects" align="center" x="0" y="0" style="text" />
 		</layer>
 	</layer>
 
@@ -152,7 +152,7 @@
 	<style name="text"
 	       type="text"
 	       background="false"
-	       css="color:#000000;"
+	       css="color:white; font-family: Helvetica, Arial, sans-serif;"
 	       enabled="false"
 	       />
 

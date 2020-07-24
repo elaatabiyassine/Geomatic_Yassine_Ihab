@@ -95,7 +95,7 @@ input.form-control[type=text]:focus{
 .list-group-item.active {
   color:white;
   font-weight:bold;
-  background-color: #121212;;
+  background-color: #121212;
   border-color:  #BB86FC;
 }
 
@@ -133,4 +133,32 @@ input.form-control[type=text]:focus{
 .carte{
   position:absolute;
   top: 0px;
+}
+
+.btnDistance{
+  color:white;
+  border-radius: 3px;
+  background-color: #000;
+  border-color:  #BB86FC;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.btnDistance:hover{
+  color:white;
+  font-weight:bold;
+  background-color: #121212;
+}
+.btnDistance:active{
+  color:white;
+  font-weight:bold;
+  background-color: #121212;
+}
+
+.card{
+  border-color:  #BB86FC
+}
+.card-body{
+  background-color: #121212;
 }

@@ -85,13 +85,9 @@
                   <a href="#" class="list-group-item list-group-item-action"><span class="fa fa-map-marker mr-2 purple"></span>   Clearmont, CA</a>
                   <a href="#" class="list-group-item list-group-item-action"><span class="fa fa-map-marker mr-2 purple"></span>   Los Angeles, CA</a>
                   <a href="#" class="list-group-item list-group-item-action"><span class="fa fa-map-marker mr-2 purple"></span>   Boston, MA</a>
-                  <button type="button" onclick="compute_first_angle();">select_first_angle</button>
-                    <span id="heading1" style="padding-left:16px; font-family:monospace;"></span>
-                  <button type="button" onclick="compute_second_angle();">select_second_angle</button>
-                    <span id="heading2" style="padding-left:16px; font-family:monospace;"></span>
-                  <button type="button" onclick="compute_distances();">distances
-                    <span id="distances" style="padding-left:16px; font-family:monospace;"></span>
-                  </button>
+                  
+                  
+                 
                 </div>
               </div>
         </div>
@@ -100,7 +96,43 @@
         </div>
       </div>
       <div class="col-9">
+        <div class="row">
         <div id="pano" class="panel" style="width:990.828px; height:550px; border-color: ;"></div> 
+      </div>
+        <div class="row justify-content-center">
+          <div class="col-4 pt-2">
+            <button type="button" class="btnDistance " data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="compute_first_angle();"><span class="fa fa-map-pin mr-2 purple"></span> Select First Point</button>
+                   
+
+                    <div class="collapse" id="collapseExample">
+                      <div class="card card-body mt-2" id="heading1">
+                        
+                      </div>
+                    </div>
+          </div>
+          <div class="col-4 pt-2">
+            <button type="button" class="btnDistance" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2" onclick="compute_second_angle();"><span class="fa fa-map-pin mr-2 purple"></span> Select Second Point</button>
+                    
+
+                    <div class="collapse" id="collapseExample2" >
+                      <div class="card card-body mt-2" id="heading2">
+                        
+                      </div>
+                    </div>
+            
+          </div>
+          <div class="col-4 pt-2 pl-4">
+
+            <button type="button" class="btnDistance " data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample3" onclick="compute_distances();"><span class="	fa fa-arrows-h mr-2 purple"></span> Measure Distance</button>
+              
+              <div class="collapse" id="collapseExample3" >
+                <div class="card card-body mt-2" id="distances">
+                  
+                </div>
+              </div>
+            
+          </div>
+        </div>
       </div>
     </div>
 
@@ -149,7 +181,7 @@
           krpano.set("hotspot["+hs_name+"].distorted", true);
           krpano.set("hotspot["+hs_name+"].alpha", 0.6);
 
-          document.getElementById("heading1").innerHTML = 'heading 1: ' + heading1;
+          document.getElementById("heading1").innerHTML = 'First Point Selected Successfully (Heading 1: ' + heading1 + '°)';
           
         }
       }
@@ -168,7 +200,7 @@
           hotspot = -(krpano.get("data[last_clicked_hotspot].data") - 90.0);
 
           add_hotspot();
-          document.getElementById("heading2").innerHTML = 'heading 2: ' + heading2 + ' ' + hotspot;
+          document.getElementById("heading2").innerHTML = 'Second Point Selected Successfully (Heading 2: ' + heading2 + '°)'; + hotspot;
           
           if ( krpano.get("device.html5") )
           {
@@ -192,7 +224,7 @@
         var s1 = Math.abs(Math.sin(beta) * (interval_dist/Math.sin(delta)));
         var s2 = Math.abs(Math.sin(alpha) * (interval_dist/Math.sin(delta)));
 
-        document.getElementById("distances").innerHTML = 's1="' + s1 + '" s2="' + s2;
+        document.getElementById("distances").innerHTML = 'Distance from camera to Point 1 (' + s1 + ' meters) <br>' + '------------------------- <br>'+' Distance from camera to Point 2 (' + s2 + ' meters)';
 
       }
 
