@@ -11,6 +11,9 @@
     "publish": "electron-forge publish",
     "lint": "echo \"No linting configured\""
   },
+  "engines": {
+    "node": "*"
+  },
   "keywords": [],
   "author": {
     "name": "yassine elaatabi",
@@ -47,6 +50,7 @@
   "dependencies": {
     "bootstrap": "^4.5.0",
     "electron-squirrel-startup": "^1.0.0",
+    "express": "^4.17.1",
     "font-awesome": "^4.7.0",
     "jquery": "^3.5.1",
     "popper": "^1.0.1",

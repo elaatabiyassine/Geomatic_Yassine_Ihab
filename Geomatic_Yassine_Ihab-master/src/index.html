@@ -47,7 +47,7 @@
             <a class="nav-link" href="aboutus.html"><span class="fa fa-black-tie mr-2 purple"></span>   ABOUT US</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="#"><span class="fa fa-address-card-o mr-2 purple"></span>  CONTACT</a>
+            <a class="nav-link " href="Contact.html" onclick=""><span class="fa fa-address-card-o mr-2 purple"></span>  CONTACT</a>
           </li>
         </ul>
       </div>
@@ -85,51 +85,24 @@
                   <a href="#" class="list-group-item list-group-item-action"><span class="fa fa-map-marker mr-2 purple"></span>   Clearmont, CA</a>
                   <a href="#" class="list-group-item list-group-item-action"><span class="fa fa-map-marker mr-2 purple"></span>   Los Angeles, CA</a>
                   <a href="#" class="list-group-item list-group-item-action"><span class="fa fa-map-marker mr-2 purple"></span>   Boston, MA</a>
+                  <button type="button" onclick="compute_first_angle();">select_first_angle</button>
+                    <span id="heading1" style="padding-left:16px; font-family:monospace;"></span>
+                  <button type="button" onclick="compute_second_angle();">select_second_angle</button>
+                    <span id="heading2" style="padding-left:16px; font-family:monospace;"></span>
+                  <button type="button" onclick="compute_distances();">distances
+                    <span id="distances" style="padding-left:16px; font-family:monospace;"></span>
+                  </button>
                 </div>
-                
               </div>
         </div>
         <div class="col-7">
-          
+     
         </div>
-
-
-
-
       </div>
       <div class="col-9">
         <div id="pano" class="panel" style="width:990.828px; height:550px; border-color: ;"></div> 
-        
-       
-        
-
-
-
       </div>
-
-
-
-
-
-
-
     </div>
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     <script src="../node_modules/jquery/dist/jquery.slim.min.js"></script>
     <script src="../node_modules/popper.js/dist/umd/popper.min.js"></script>
@@ -137,6 +110,94 @@
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
     integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
     crossorigin=""></script>
+    <script src="annotate.js"></script>
+    <script src="tour.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="krpano.js"></script>
+    
+
+    <script>
+
+     var krpano = null;
+     var heading1 = null;
+     var heading2= null;
+     var hotspot = null;
+     const interval_dist = 7.0;
+
+     embedpano({swf:"tour.swf", id : "krpanoSWFObject", xml:"tour.xml", target:"pano", consolelog : true, html5:"auto",
+     mobilescale:1.0, passQueryParameters:true, passQueryParameters : true, onready : krpano_onready_callback});
+
+     function krpano_onready_callback(krpano_interface)
+      {
+        krpano = krpano_interface;
+      }
+
+      function add_hotspot()
+      {
+        if (krpano)
+        {
+          krpano.call("removehotspot('temp_hs')");
+
+          var h = krpano.get("view.hlookat");
+          var v = krpano.get("view.vlookat");
+          var hs_name = "temp_hs";
+
+          krpano.call("addhotspot(" + hs_name + ")");
+          krpano.set("hotspot["+hs_name+"].url", "tracked.png");
+          krpano.set("hotspot["+hs_name+"].ath", h);
+          krpano.set("hotspot["+hs_name+"].atv", v);
+          krpano.set("hotspot["+hs_name+"].distorted", true);
+          krpano.set("hotspot["+hs_name+"].alpha", 0.6);
+
+          document.getElementById("heading1").innerHTML = 'heading 1: ' + heading1;
+          
+        }
+      }
+
+     function compute_first_angle()
+      {
+          heading1 = -(krpano.get("view.hlookat") - 90.0);
+          add_hotspot();
+          
+      }
+
+      function compute_second_angle()
+      {
+        if (heading1 != null){
+          heading2 = -(krpano.get("view.hlookat") - 90.0);
+          hotspot = -(krpano.get("data[last_clicked_hotspot].data") - 90.0);
+
+          add_hotspot();
+          document.getElementById("heading2").innerHTML = 'heading 2: ' + heading2 + ' ' + hotspot;
+          
+          if ( krpano.get("device.html5") )
+          {
+            // for HTML5 it's possible to assign JS functions directly to krpano events
+            krpano.set("hotspot["+hs_name+"].onclick", function(hs)
+            {
+
+            
+            }.bind(null, hs_name));
+          }
+        }else{
+          alert('No object selected for tracking!');
+        }
+      }
+      function compute_distances()
+      {
+        var alpha = Math.abs(heading1) - Math.abs(hotspot);
+        var a = 180.0 - Math.abs(hotspot);
+        var beta = 360.0 - Math.abs(heading2) - Math.abs(a);
+        var delta = 180.0 - Math.abs(alpha) - Math.abs(beta);
+        var s1 = Math.abs(Math.sin(beta) * (interval_dist/Math.sin(delta)));
+        var s2 = Math.abs(Math.sin(alpha) * (interval_dist/Math.sin(delta)));
+
+        document.getElementById("distances").innerHTML = 's1="' + s1 + '" s2="' + s2;
+
+      }
+
+    </script>
+
     <script>
               var mymap = L.map('mapid').setView([33.5731, -7.5898], 13);
                       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -204,14 +265,6 @@
 
 
     
-    </script>
-    <script src="tour.js"></script>
-    <script src="js/scripts.js"></script>
-    <script src="krpano.js"></script>
-    <script src="./renderer.js"></script>
-
-    <script>
-     embedpano({swf:"tour.swf", xml:"tour.xml", target:"pano", html5:"auto", mobilescale:1.0, passQueryParameters:true});
     </script>
     
 
